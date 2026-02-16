@@ -1,12 +1,11 @@
 console.log("ІНСТРУКЦІЯ:");
-console.log("Використовуйте функцію triangle(value1, type1, value2, type2)");
-console.log("Можливі типи:");
+console.log("triangle(value1, type1, value2, type2)");
+console.log("Типи:");
 console.log('"leg" - катет');
 console.log('"hypotenuse" - гіпотенуза');
 console.log('"adjacent angle" - прилеглий до катета кут');
 console.log('"opposite angle" - протилежний до катета кут');
-console.log('"angle" - гострий кут (коли задана гіпотенуза)');
-console.log("Приклад: triangle(4, 'leg', 8, 'hypotenuse');");
+console.log('"angle" - гострий кут при гіпотенузі');
 
 function toRadians(deg) {
     return deg * Math.PI / 180;
@@ -16,75 +15,132 @@ function toDegrees(rad) {
     return rad * 180 / Math.PI;
 }
 
+function isFiniteNumber(x) {
+    return typeof x === "number" && isFinite(x);
+}
+
 function triangle(value1, type1, value2, type2) {
 
-    let a, b, c, alpha, beta;
+    if (!isFiniteNumber(value1) || !isFiniteNumber(value2))
+        return "Помилка: аргументи повинні бути числами";
 
-    if (value1 <= 0 || value2 <= 0) {
+    if (value1 <= 0 || value2 <= 0)
         return "Помилка: значення повинні бути більше 0";
-    }
 
-    // Якщо задано катет і гіпотенузу
-    if ((type1 === "leg" && type2 === "hypotenuse") ||
-        (type2 === "leg" && type1 === "hypotenuse")) {
-
-        let leg = (type1 === "leg") ? value1 : value2;
-        let hyp = (type1 === "hypotenuse") ? value1 : value2;
-
-        if (leg >= hyp) {
-            return "Помилка: катет не може бути більшим або рівним гіпотенузі";
-        }
-
-        a = leg;
-        c = hyp;
-        b = Math.sqrt(c * c - a * a);
-
-        alpha = toDegrees(Math.asin(a / c));
-        beta = 90 - alpha;
-    }
-
-    // Якщо задано два катети
-    else if (type1 === "leg" && type2 === "leg") {
-
-        a = value1;
-        b = value2;
-        c = Math.sqrt(a * a + b * b);
-
-        alpha = toDegrees(Math.atan(a / b));
-        beta = 90 - alpha;
-    }
-
-    // Якщо задано гіпотенузу і кут
-    else if ((type1 === "hypotenuse" && type2 === "angle") ||
-             (type2 === "hypotenuse" && type1 === "angle")) {
-
-        let hyp = (type1 === "hypotenuse") ? value1 : value2;
-        let angle = (type1 === "angle") ? value1 : value2;
-
-        if (angle <= 0 || angle >= 90) {
-            return "Помилка: кут повинен бути гострим (0 < angle < 90)";
-        }
-
-        c = hyp;
-        alpha = angle;
-        beta = 90 - alpha;
-
-        a = c * Math.sin(toRadians(alpha));
-        b = c * Math.cos(toRadians(alpha));
-    }
-
-    else {
+    const types = ["leg", "hypotenuse", "adjacent angle", "opposite angle", "angle"];
+    if (!types.includes(type1) || !types.includes(type2)) {
         console.log("Неправильні типи аргументів. Перечитайте інструкцію.");
         return "failed";
     }
 
-    console.log("Результати:");
-    console.log("a =", a.toFixed(2));
-    console.log("b =", b.toFixed(2));
-    console.log("c =", c.toFixed(2));
-    console.log("alpha =", alpha.toFixed(2), "°");
-    console.log("beta =", beta.toFixed(2), "°");
+    let a, b, c, alpha, beta;
+
+    // -------------------------
+    // ДВА КАТЕТИ
+    // -------------------------
+    if (type1 === "leg" && type2 === "leg") {
+        a = value1;
+        b = value2;
+        c = Math.sqrt(a*a + b*b);
+        alpha = toDegrees(Math.atan(a/b));
+        beta = 90 - alpha;
+    }
+
+    // -------------------------
+    // КАТЕТ + ГІПОТЕНУЗА
+    // -------------------------
+    else if (
+        (type1 === "leg" && type2 === "hypotenuse") ||
+        (type2 === "leg" && type1 === "hypotenuse")
+    ) {
+        a = (type1 === "leg") ? value1 : value2;
+        c = (type1 === "hypotenuse") ? value1 : value2;
+
+        if (a >= c)
+            return "Помилка: катет не може бути >= гіпотенузи";
+
+        b = Math.sqrt(c*c - a*a);
+        alpha = toDegrees(Math.asin(a/c));
+        beta = 90 - alpha;
+    }
+
+    // -------------------------
+    // ГІПОТЕНУЗА + КУТ
+    // -------------------------
+    else if (
+        (type1 === "hypotenuse" && type2 === "angle") ||
+        (type2 === "hypotenuse" && type1 === "angle")
+    ) {
+        c = (type1 === "hypotenuse") ? value1 : value2;
+        alpha = (type1 === "angle") ? value1 : value2;
+
+        if (alpha <= 0 || alpha >= 90)
+            return "Помилка: кут повинен бути гострим";
+
+        beta = 90 - alpha;
+        a = c * Math.sin(toRadians(alpha));
+        b = c * Math.cos(toRadians(alpha));
+    }
+
+    // -------------------------
+    // КАТЕТ + ПРИЛЕГЛИЙ КУТ
+    // -------------------------
+    else if (
+        (type1 === "leg" && type2 === "adjacent angle") ||
+        (type2 === "leg" && type1 === "adjacent angle")
+    ) {
+        a = (type1 === "leg") ? value1 : value2;
+        beta = (type1 === "adjacent angle") ? value1 : value2;
+
+        if (beta <= 0 || beta >= 90)
+            return "Помилка: кут повинен бути гострим";
+
+        alpha = 90 - beta;
+        b = a * Math.tan(toRadians(beta));
+        c = a / Math.cos(toRadians(beta));
+    }
+
+    // -------------------------
+    // КАТЕТ + ПРОТИЛЕЖНИЙ КУТ
+    // -------------------------
+    else if (
+        (type1 === "leg" && type2 === "opposite angle") ||
+        (type2 === "leg" && type1 === "opposite angle")
+    ) {
+        a = (type1 === "leg") ? value1 : value2;
+        alpha = (type1 === "opposite angle") ? value1 : value2;
+
+        if (alpha <= 0 || alpha >= 90)
+            return "Помилка: кут повинен бути гострим";
+
+        beta = 90 - alpha;
+        c = a / Math.sin(toRadians(alpha));
+        b = Math.sqrt(c*c - a*a);
+    }
+
+    else {
+        console.log("Несумісна пара типів.");
+        return "failed";
+    }
+
+    // -------------------------
+    // Перевірка переповнення
+    // -------------------------
+    if (!isFinite(a) || !isFinite(b) || !isFinite(c))
+        return "Помилка: обчислення призвели до переповнення";
+
+    // -------------------------
+    // Гранично малі значення
+    // -------------------------
+    const EPS = 1e-10;
+    if (a < EPS || b < EPS || c < EPS)
+        return "Помилка: занадто малі значення сторін";
+
+    console.log("a =", a);
+    console.log("b =", b);
+    console.log("c =", c);
+    console.log("alpha =", alpha);
+    console.log("beta =", beta);
 
     return "success";
 }
-
