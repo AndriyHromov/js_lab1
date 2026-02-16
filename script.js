@@ -35,9 +35,7 @@ function triangle(value1, type1, value2, type2) {
 
     let a, b, c, alpha, beta;
 
-    // -------------------------
-    // ДВА КАТЕТИ
-    // -------------------------
+   
     if (type1 === "leg" && type2 === "leg") {
         a = value1;
         b = value2;
@@ -46,9 +44,7 @@ function triangle(value1, type1, value2, type2) {
         beta = 90 - alpha;
     }
 
-    // -------------------------
-    // КАТЕТ + ГІПОТЕНУЗА
-    // -------------------------
+   
     else if (
         (type1 === "leg" && type2 === "hypotenuse") ||
         (type2 === "leg" && type1 === "hypotenuse")
@@ -64,9 +60,7 @@ function triangle(value1, type1, value2, type2) {
         beta = 90 - alpha;
     }
 
-    // -------------------------
-    // ГІПОТЕНУЗА + КУТ
-    // -------------------------
+
     else if (
         (type1 === "hypotenuse" && type2 === "angle") ||
         (type2 === "hypotenuse" && type1 === "angle")
@@ -82,9 +76,7 @@ function triangle(value1, type1, value2, type2) {
         b = c * Math.cos(toRadians(alpha));
     }
 
-    // -------------------------
-    // КАТЕТ + ПРИЛЕГЛИЙ КУТ
-    // -------------------------
+    
     else if (
         (type1 === "leg" && type2 === "adjacent angle") ||
         (type2 === "leg" && type1 === "adjacent angle")
@@ -100,9 +92,7 @@ function triangle(value1, type1, value2, type2) {
         c = a / Math.cos(toRadians(beta));
     }
 
-    // -------------------------
-    // КАТЕТ + ПРОТИЛЕЖНИЙ КУТ
-    // -------------------------
+  
     else if (
         (type1 === "leg" && type2 === "opposite angle") ||
         (type2 === "leg" && type1 === "opposite angle")
@@ -123,15 +113,11 @@ function triangle(value1, type1, value2, type2) {
         return "failed";
     }
 
-    // -------------------------
-    // Перевірка переповнення
-    // -------------------------
+
     if (!isFinite(a) || !isFinite(b) || !isFinite(c))
         return "Помилка: обчислення призвели до переповнення";
 
-    // -------------------------
-    // Гранично малі значення
-    // -------------------------
+
     const EPS = 1e-10;
     if (a < EPS || b < EPS || c < EPS)
         return "Помилка: занадто малі значення сторін";
