@@ -97,7 +97,6 @@ truck1.trip();
 truck2.trip();
 
 
-
 // =====================
 // Завдання 2
 // =====================
@@ -105,7 +104,21 @@ truck2.trip();
 class Square {
 
     constructor(a) {
-        this.a = a;
+        this._a = a; // внутрішня змінна
+    }
+
+    // GETTER
+    get side() {
+        return this._a;
+    }
+
+    // SETTER
+    set side(value) {
+        if (value > 0) {
+            this._a = value;
+        } else {
+            console.log("Side must be positive");
+        }
     }
 
     static help() {
@@ -113,16 +126,16 @@ class Square {
     }
 
     length() {
-        console.log("Perimeter:", this.a * 4);
+        console.log("Perimeter:", this._a * 4);
     }
 
     square() {
-        console.log("Area:", this.a * this.a);
+        console.log("Area:", this._a * this._a);
     }
 
     info() {
 
-        console.log("Sides:", this.a, this.a, this.a, this.a);
+        console.log("Sides:", this._a, this._a, this._a, this._a);
         console.log("Angles: 90, 90, 90, 90");
 
         this.length();
@@ -143,16 +156,16 @@ class Rectangle extends Square {
     }
 
     length() {
-        console.log("Perimeter:", 2 * (this.a + this.b));
+        console.log("Perimeter:", 2 * (this._a + this.b));
     }
 
     square() {
-        console.log("Area:", this.a * this.b);
+        console.log("Area:", this._a * this.b);
     }
 
     info() {
 
-        console.log("Sides:", this.a, this.b, this.a, this.b);
+        console.log("Sides:", this._a, this.b, this._a, this.b);
         console.log("Angles: 90, 90, 90, 90");
 
         this.length();
@@ -174,19 +187,19 @@ class Rhombus extends Square {
     }
 
     length() {
-        console.log("Perimeter:", this.a * 4);
+        console.log("Perimeter:", this._a * 4);
     }
 
     square() {
 
         let rad = this.alpha * Math.PI / 180;
 
-        console.log("Area:", Math.round(this.a * this.a * Math.sin(rad)));
+        console.log("Area:", Math.round(this._a * this._a * Math.sin(rad)));
     }
 
     info() {
 
-        console.log("Sides:", this.a, this.a, this.a, this.a);
+        console.log("Sides:", this._a, this._a, this._a, this._a);
         console.log("Angles:", this.alpha, this.beta, this.alpha, this.beta);
 
         this.length();
@@ -210,19 +223,19 @@ class Parallelogram extends Rectangle {
     }
 
     length() {
-        console.log("Perimeter:", 2 * (this.a + this.b));
+        console.log("Perimeter:", 2 * (this._a + this.b));
     }
 
     square() {
 
         let rad = this.alpha * Math.PI / 180;
 
-        console.log("Area:", Math.round(this.a * this.b * Math.sin(rad)));
+        console.log("Area:", Math.round(this._a * this.b * Math.sin(rad)));
     }
 
     info() {
 
-        console.log("Sides:", this.a, this.b, this.a, this.b);
+        console.log("Sides:", this._a, this.b, this._a, this.b);
         console.log("Angles:", this.alpha, this.beta, this.alpha, this.beta);
 
         this.length();
@@ -241,11 +254,16 @@ var rect = new Rectangle(4, 8);
 var rh = new Rhombus(6, 120, 60);
 var par = new Parallelogram(7, 10, 130, 50);
 
+// використання getter
+console.log("Square side:", sq.side);
+
+// використання setter
+sq.side = 10;
+
 sq.info();
 rect.info();
 rh.info();
 par.info();
-
 
 
 // =====================
