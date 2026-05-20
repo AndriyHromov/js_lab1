@@ -2,13 +2,304 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>JS Lab 1 - Triangle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доповідь: Робота з реєстром в ОС Windows</title>
+    <style>
+        :root {
+            --primary-color: #2b579a;
+            --primary-dark: #1e3d6b;
+            --accent-color: #00a1f1;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --code-bg: #f1f3f6;
+            --border-color: #e2e8f0;
+            --warning-bg: #fff5f5;
+            --warning-border: #e53e3e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin: 20px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 20px;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Стилізація таблиць */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Блок попередження */
+        .warning-box {
+            background-color: var(--warning-bg);
+            border-left: 5px solid var(--warning-border);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box h4 {
+            color: var(--warning-border);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Код та утиліти */
+        code {
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #d63384;
+        }
+
+        pre {
+            background-color: #2d3748;
+            color: #f7fafc;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: #f7fafc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        /* Адаптивність */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Лабораторна робота №1</h1>
-    <p>Відкрийте консоль браузера (F12) та використовуйте функцію triangle()</p>
 
-    <script src="script.js"></script>
+    <header>
+        <h1>Робота з реєстром в ОС Windows</h1>
+        <p>Детальна доповідь про архітектуру, методи конфігурації, інструменти автоматизації та правила безпеки при роботі з системним реєстром.</p>
+    </header>
+
+    <div class="container">
+        
+        <section id="introduction">
+            <h2>Вступ</h2>
+            <p><strong>Системний реєстр Windows (Windows Registry)</strong> — це централізована ієрархічна база даних, яка зберігає налаштування, конфігурації та параметри операційної системи, апаратного забезпечення, користувацьких профілів та встановлених програмних продуктів.</p>
+            <p>У ранніх версіях Windows (до Windows 95) конфігурація системи покладалася на розрізнені текстові файли ініціалізації з розширенням <code>.ini</code> (такі як <code>win.ini</code>, <code>system.ini</code>). Перехід до єдиної бази даних дозволив уніфікувати доступ до параметрів, підвищити швидкість зчитування налаштувань та реалізувати розмежування прав доступу користувачів. Проте, це також перетворило реєстр на критично вразливу точку системи: його пошкодження може повністю паралізувати роботу комп'ютера.</p>
+        </section>
+
+        <section id="structure">
+            <h2>1. Структура та логічна архітектура</h2>
+            <p>Реєстр має деревоподібну структуру, що візуально нагадує файлову систему. Він складається з <strong>ключів/розділів (Keys)</strong>, які виконують роль папок, та <strong>параметрів (Values)</strong>, що є аналогами файлів і містять безпосередні дані.</p>
+            
+            <h3>Кореневі розділи (Hives)</h3>
+            <p>Уся база даних розділена на 5 основних стандартних гілок:</p>
+            
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Гілка (Кореневий ключ)</th>
+                            <th>Опис та призначення</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>HKEY_CLASSES_ROOT (HKCR)</code></td>
+                            <td>Зберігає файлові асоціації (яка програма відкриває певний тип файлу) та реєстраційні дані компонентів COM/OLE.</td>
+                        </tr>
+                        <tr>
+                            <td><code>HKEY_CURRENT_USER (HKCU)</code></td>
+                            <td>Містить конфігурацію користувача, який виконав вхід у систему (теми оформлення, розкладка клавіатури, персональні налаштування софту).</td>
+                        </tr>
+                        <tr>
+                            <td><code>HKEY_LOCAL_MACHINE (HKLM)</code></td>
+                            <td>Найважливіша гілка. Зберігає глобальні налаштування системи та заліза, що застосовуються до всього комп'ютера незалежно від користувача.</td>
+                        </tr>
+                        <tr>
+                            <td><code>HKEY_USERS (HKU)</code></td>
+                            <td>Містить індивідуальні профілі всіх користувачів системи. Розділ <code>HKCU</code> є динамічним посиланням на один із підрозділів цієї гілки.</td>
+                        </tr>
+                        <tr>
+                            <td><code>HKEY_CURRENT_CONFIG (HKCC)</code></td>
+                            <td>Зберігає оперативну інформацію про поточний апаратний профіль, який використовується під час поточного сеансу.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Основні типи даних</h3>
+            <p>Кожен параметр у реєстрі має чітко визначений тип. Найчастіше використовуються такі:</p>
+            <ul>
+                <li><strong>REG_SZ:</strong> Текстовий рядок фіксованої довжини.</li>
+                <li><strong>REG_DWORD:</strong> 32-бітне ціле число. Часто використовується для логічних значень (<code>0</code> — вимкнено, <code>1</code> — увімкнено).</li>
+                <li><strong>REG_BINARY:</strong> Двійкові (бінарні) дані. Використовуються для збереження інформації про драйвери та низькорівневе залізо.</li>
+                <li><strong>REG_EXPAND_SZ:</strong> Розширюваний текстовий рядок, що може містити змінні оточення (наприклад, <code>%SystemRoot%</code>).</li>
+            </ul>
+        </section>
+
+        <section id="tools">
+            <h2>2. Інструменти для модифікації та керування</h2>
+            <p>Для взаємодії з реєстром існують як інтерактивні графічні інтерфейси, так і потужні засоби консольної автоматизації.</p>
+
+            <h3>Графічний редактор (regedit)</h3>
+            <p>Стандартна утиліта для ручного керування. Для запуску достатньо викликати діалогове вікно комбінацією <code>Win + R</code>, ввести <code>regedit</code> та підтвердити права адміністратора. Вона надає повний доступ до дерева ключів, пошуку та редагування значень.</p>
+
+            <h3>Файли реєстрації (.reg)</h3>
+            <p>Це звичайні текстові файли, які містять інструкції зі зміни структури реєстру. Подвійний клік по такому файлу імпортує його вміст безпосередньо в базу даних. Приклад структури <code>.reg</code> файлу:</p>
+            <pre><code>Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\MyCustomApp]
+"LaunchCount"=dword:00000001
+"AppPath"="C:\\Program Files\\MyCustomApp"</code></pre>
+
+            <h3>Автоматизація через PowerShell</h3>
+            <p>Сучасні системні адміністратори використовують PowerShell, де гілки реєстру змонтовані як звичайні логічні диски (<code>HKLM:\</code> та <code>HKCU:\</code>). Це дозволяє писати гнучкі скрипти автоматизації:</p>
+            <pre><code># Читання параметра з реєстру
+Get-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper"
+
+# Створення нового параметра
+New-ItemProperty -Path "HKCU:\Software\TestKey" -Name "Version" -PropertyType String -Value "1.0"</code></pre>
+        </section>
+
+        <section id="safety">
+            <h2>3. Безпека та резервне копіювання</h2>
+            <div class="warning-box">
+                <h4>⚠️ Критичне попередження щодо безпеки</h4>
+                <p>Некоректні зміни в реєстрі Windows, помилкове видалення ключів або встановлення невідповідних параметрів можуть призвести до повної відмови операційної системи, появи критичних помилок (BSOD — Синій екран смерті) або втрати стабільності додатків. Завжди створюйте резервну копію перед початком робіт!</p>
+            </div>
+
+            <h3>Методи захисту та відновлення:</h3>
+            <ol>
+                <li><strong>Ручний експорт:</strong> У програмі <code>regedit</code> можна клікнути правою кнопкою миші на будь-який розділ (або на «Комп'ютер» для всього реєстру) і натиснути <strong>«Експорт»</strong>, зберігши поточний стан у файл <code>.reg</code>.</li>
+                <li><strong>Точки відновлення системи (System Restore):</strong> Windows автоматично робить знімок реєстру при створенні точок відновлення. Перед експериментами рекомендується створити таку точку вручну.</li>
+                <li><strong>Фізичні файли (Hives):</strong> Файли реєстру зберігаються на диску за шляхом <code>%SystemRoot%\System32\config\</code> (файли SYSTEM, SOFTWARE, SAM тощо). У разі критичного збою їх можна спробувати відновити через середовище відновлення Windows (Windows RE).</li>
+            </ol>
+        </section>
+
+        <section id="conclusion">
+            <h2>Висновок</h2>
+            <p>Системний реєстр Windows — це фундаментальний компонент архітектурної будови ОС, який забезпечує швидку, централізовану та структуровану роботу всіх елементів екосистеми. Розуміння його внутрішнього устрою та володіння інструментами автоматизації є невід'ємною навичкою для системних адміністраторів, розробників та досвідчених користувачів. Водночас робота з ним вимагає високої дисципліни, максимальної уважності та обов'язкового дотримання правил резервного копіювання.</p>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Доповідь: Робота з реєстром в ОС Windows. Створено для розміщення на GitHub Pages.</p>
+    </footer>
+
 </body>
 </html>
-
